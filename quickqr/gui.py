@@ -13,9 +13,10 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import PYQT_VERSION_STR
 from quickqr import QUICKQR_HOMEPAGE_URL, QUICKQR_VERSION, QUICKQR_APPLICATION_NAME
+
+from PyQt5 import QtWidgets, QtGui
 from quickqr.ui_about import Ui_AboutWidget
 from quickqr.ui_qr import Ui_QrWidget
 from pathlib import Path
@@ -74,13 +75,13 @@ class AboutWidget(QtWidgets.QWidget):
 
         text = """
         <div align="center">
-            <p style="font-size: large"><strong>QuickQR</strong><br>v{}</p>
+            <p style="font-size: xx-large"><strong>QuickQR</strong><br>v{}</p>
+            <p style="font-size: large">Generate a QR code from your clipboard</p>
             <p style="font-size: medium">Documentation, upcoming features, bug reports<br>
                 <a href="{}">{}</a></p>
             <p style="font-size: small">
                 <u>Run with</u><br>
-                Python v3.6<br>
-                PyQt v{}
+                Python v3.6, PyQt v{}, qrcode v6.0
             </p>
         </div>""".format(QUICKQR_VERSION, QUICKQR_HOMEPAGE_URL, QUICKQR_HOMEPAGE_URL, PYQT_VERSION_STR)
         self.ui.about.setText(text)
