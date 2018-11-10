@@ -26,7 +26,7 @@ import sys
 
 
 def icon(name):
-    resource_path = Path(__file__).parent.parent.joinpath("resource")
+    resource_path = Path(__file__).parent.parent.joinpath("resources")
     icons_path = resource_path.joinpath("icons")
     icon = icons_path.joinpath(name)
     if not icon.exists():

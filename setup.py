@@ -47,7 +47,7 @@ class build_ui(Command):
                     continue
                 files.append(path)
         else:
-            tmp = glob.glob("{}/resource/ui/*.ui".format(ROOT_PATH))
+            tmp = glob.glob("{}/resources/ui/*.ui".format(ROOT_PATH))
             for file in tmp:
                 path = Path(file)
                 files.append(path)

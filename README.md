@@ -1,4 +1,4 @@
-![QuickQR logo](resource/icons/quickqr.svg)
+![QuickQR logo](resources/icons/quickqr.svg)
 
 __Quickly generate QR codes.__
 
