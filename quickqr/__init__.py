@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# QuickQR, get QR code using your clipboard from your system tray.
+# QuickQR, quickly generate a QR code.
 # Copyright (C) 2018 flow.gunso@gmail.com
 #
 # This program is free software: you can redistribute it and/or modify
