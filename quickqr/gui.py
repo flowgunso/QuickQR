@@ -138,7 +138,9 @@ class QrWidget(QtWidgets.QWidget):
         self.ui = Ui_QrWidget()
         self.ui.setupUi(self)
         self.setWindowIcon(icon("quickqr.svg"))
-        self.temporary_file = None
+
+        # Define the initial QR image file state.
+        self.temporary_qr_image_file = None
         self.update()
 
         QtWidgets.QApplication.clipboard().dataChanged.connect(self.update)
@@ -146,26 +148,29 @@ class QrWidget(QtWidgets.QWidget):
 
     def update(self):
         clipboard = QtWidgets.QApplication.clipboard().text()
-        if self.temporary_file is not None:
-            self.temporary_file.close()
 
+        # Prevent crashes when generating empty or oversized QR codes.
         if clipboard:
             if sys.getsizeof(clipboard) <= 4096:
+
+                # Close the last temporary QR image file.
+                if self.temporary_qr_image_file is not None:
+                    self.temporary_qr_image_file.close()
+
                 # Generate QR code and save it to the temporary file.
                 qr = qrcode.make(clipboard)
-                self.temporary_file = NamedTemporaryFile(mode="wb")
-                qr.save(self.temporary_file)
+                self.temporary_qr_image_file = NamedTemporaryFile(mode="wb")
+                qr.save(self.temporary_qr_image_file)
 
                 # Set the text displayed in the widget as HTML.
                 text = """
                     <div align="center">
                         <img src="{}" width="500" height="500"/><br>
                         {}
-                    </div>""".format(self.temporary_file.name, clipboard)
+                    </div>""".format(self.temporary_qr_image_file.name, clipboard)
                 self.ui.label.setText(text)
                 return
         self.hide()
-
 
     def closeEvent(self, event):
         event.ignore()
