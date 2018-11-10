@@ -19,19 +19,18 @@ from quickqr import QUICKQR_HOMEPAGE_URL, QUICKQR_VERSION, QUICKQR_APPLICATION_N
 from quickqr.ui_about import Ui_AboutWidget
 from quickqr.ui_qr import Ui_QrWidget
 from pathlib import Path
+from tempfile import NamedTemporaryFile
+import qrcode
 import sys
 
 
-def icon(name, test=False):
+def icon(name):
     resource_path = Path(__file__).parent.parent.joinpath("resource")
     icons_path = resource_path.joinpath("icons")
     icon = icons_path.joinpath(name)
     if not icon.exists():
         raise FileExistsError
-    if test:
-        return str(icon)
-    else:
-        return QtGui.QIcon(QtGui.QPixmap(str(icon)))
+    return QtGui.QIcon(QtGui.QPixmap(str(icon)))
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -106,10 +105,31 @@ class TrayMenu(QtWidgets.QMenu):
         # Separator.
         self.addSeparator()
         # The QR displaying!
+        self.action_display_qr = QtWidgets.QAction(self)
         self.widget_display_qr = QrWidget()
-        self.action_display_qr = QtWidgets.QAction("Show QR")
         self.action_display_qr.triggered.connect(self.widget_display_qr.show)
         self.addAction(self.action_display_qr)
+
+        self.update()
+
+        QtWidgets.QApplication.clipboard().dataChanged.connect(self.update)
+
+
+    def update(self):
+        clipboard = QtWidgets.QApplication.clipboard().text()
+        if clipboard:
+            if sys.getsizeof(clipboard) <= 4096:
+                text = "Show QR of current clipboard"
+                enabled = True
+            else:
+                text = "Current clipboard is too large (>4kB) to generate a QR code!"
+                enabled = False
+        else:
+            text = "Current clipboard is empty..."
+            enabled = False
+
+        self.action_display_qr.setText(text)
+        self.action_display_qr.setEnabled(enabled)
 
 
 class QrWidget(QtWidgets.QWidget):
@@ -118,22 +138,40 @@ class QrWidget(QtWidgets.QWidget):
         super(QrWidget, self).__init__(parent)
         self.ui = Ui_QrWidget()
         self.ui.setupUi(self)
+        self.setWindowIcon(icon("quickqr.svg"))
+        self.temporary_file = None
         self.update()
 
+        QtWidgets.QApplication.clipboard().dataChanged.connect(self.update)
+
+
     def update(self):
-        clipboard = QtWidgets.QApplication.clipboard()
+        clipboard = QtWidgets.QApplication.clipboard().text()
+        if self.temporary_file is not None:
+            self.temporary_file.close()
+
         if clipboard:
-            text = """
-            <div align="center">
-                <img src="{}" width="500" height="500"/><br>
-                {}
-            </div>""".format(icon("../square.png", True), "A square. Fuck.")
-            self.ui.label.setText(text)
-        else:
-            self.hide()
+            if sys.getsizeof(clipboard) <= 4096:
+                # Generate QR code and save it to the temporary file.
+                qr = qrcode.make(clipboard)
+                self.temporary_file = NamedTemporaryFile(mode="wb")
+                qr.save(self.temporary_file)
+
+                # Set the text displayed in the widget as HTML.
+                text = """
+                    <div align="center">
+                        <img src="{}" width="500" height="500"/><br>
+                        {}
+                    </div>""".format(self.temporary_file.name, clipboard)
+                self.ui.label.setText(text)
+                return
+        self.hide()
+
 
     def closeEvent(self, event):
         event.ignore()
+        self.temporary_file.close()
+        self.temporary_file = None
         self.destroy()
 
 
