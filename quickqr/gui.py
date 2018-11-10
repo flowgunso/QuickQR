@@ -14,20 +14,18 @@
 # GNU General Public License for more details.
 
 from PyQt5.QtCore import PYQT_VERSION_STR
-from quickqr import QUICKQR_HOMEPAGE_URL, QUICKQR_VERSION, QUICKQR_APPLICATION_NAME
+from quickqr import QUICKQR_HOMEPAGE_URL, QUICKQR_VERSION, QUICKQR_APPLICATION_NAME, RESOURCES_PATH
 
 from PyQt5 import QtWidgets, QtGui
 from quickqr.ui_about import Ui_AboutWidget
 from quickqr.ui_qr import Ui_QrWidget
-from pathlib import Path
 from tempfile import NamedTemporaryFile
 import qrcode
 import sys
 
 
 def icon(name):
-    resource_path = Path(__file__).parent.parent.joinpath("resources")
-    icons_path = resource_path.joinpath("icons")
+    icons_path = RESOURCES_PATH.joinpath("icons")
     icon = icons_path.joinpath(name)
     if not icon.exists():
         raise FileExistsError
