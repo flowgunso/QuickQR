@@ -169,9 +169,7 @@ class QrWidget(QtWidgets.QWidget):
 
     def closeEvent(self, event):
         event.ignore()
-        self.temporary_file.close()
-        self.temporary_file = None
-        self.destroy()
+        self.hide()
 
 
 class ShowHideAction(QtWidgets.QAction):
