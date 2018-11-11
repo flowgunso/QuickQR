@@ -12,6 +12,5 @@
 - Instead of writing QR code image file to disk, how about to RAM ?
 - Build documentation with Sphinx
 - Write tests
-- Add logging
 - Add argument parsing
 - Management QApplication.exit() event to clear qr images and logging
