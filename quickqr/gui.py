@@ -28,6 +28,9 @@ from quickqr.ui_qr import Ui_QrWidget
 from tempfile import NamedTemporaryFile
 import qrcode
 import sys
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def icon(name):
@@ -68,6 +71,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.icon_system_tray.setContextMenu(self.menu_system_tray)
         self.icon_system_tray.show()
 
+        logger.debug("MainWindow have been instanciated.")
+
     def closeEvent(self, event):
         """Override the close event to hide the main window, not close the whole application."""
         event.ignore()
@@ -104,6 +109,8 @@ class AboutWidget(QtWidgets.QWidget):
         self.ui.terminate.setText("Terminate {}".format(QUICKQR_APPLICATION_NAME))
         self.ui.terminate.setIcon(icon("process-stop.svg"))
         self.ui.terminate.clicked.connect(QtWidgets.QApplication.exit)
+
+        logger.debug("AboutWidget have been instanciated.")
 
 
 class TrayMenu(QtWidgets.QMenu):
@@ -150,6 +157,8 @@ class TrayMenu(QtWidgets.QMenu):
         # Watch clipboard changes to update the tray menu QR displaying action text.
         QtWidgets.QApplication.clipboard().dataChanged.connect(self.update)
 
+        logger.debug("TrayMenu have been instanciated.")
+
 
     def update(self):
         """Update the action's text that displays the QR code depending on the clipboard."""
@@ -167,6 +176,8 @@ class TrayMenu(QtWidgets.QMenu):
             enabled = False
         self.action_display_qr.setText(text)
         self.action_display_qr.setEnabled(enabled)
+
+        logger.debug("QR action's text have changed.")
 
 
 class QrWidget(QtWidgets.QWidget):
@@ -188,6 +199,8 @@ class QrWidget(QtWidgets.QWidget):
 
         # Watch for clipboard changes to update the QR code.
         QtWidgets.QApplication.clipboard().dataChanged.connect(self.update)
+
+        logger.debug("QrWidget have been instanciated.")
 
 
     def update(self):

@@ -38,8 +38,8 @@ def entrypoint():
     # Set handlers to loggers.
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
-    logger.info("QuickQR started")
 
+    logger.debug("QuickQR is starting...")
     app = QApplication(sys.argv)
     mw = gui.MainWindow()
     sys.exit(app.exec_())

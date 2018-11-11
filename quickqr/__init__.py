@@ -20,9 +20,12 @@ Contains crucial metatada, such as names, version and paths.
 Used in ../entrypoint.py, gui.py.
 """
 
+from pathlib import Path
 import sys
 import os
-from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
 
 QUICKQR_ORGANISATION_NAME = "flow.gunso@gmail.com"
 QUICKQR_APPLICATION_NAME = "QuickQR"
@@ -33,8 +36,10 @@ ROOT_PATH = Path(os.path.dirname(os.path.abspath(sys.argv[0])))
 
 # Define the runtime path when run bundled or from sources.
 if getattr(sys, 'frozen', False):
+    logger.debug("Application is running bundled.")
     RUNTIME_PATH = Path(sys._MEIPASS)
 else:
+    logger.debug("Application is running from sources.")
     RUNTIME_PATH = ROOT_PATH
 
 RESOURCES_PATH = RUNTIME_PATH.joinpath('resources')
