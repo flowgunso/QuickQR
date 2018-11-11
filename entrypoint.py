@@ -20,6 +20,11 @@ import sys
 
 
 def entrypoint():
+    """QuickQR application entrypoint.
+
+    Used with PyInstaller for it's entrypoint.
+    Also use it to run from source.
+    """
     # Define loggers.
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)

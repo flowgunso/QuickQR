@@ -13,6 +13,12 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
+"""QuickQR graphical module.
+
+Is this application core.
+Contains Qt bindings and QR code generation.
+"""
+
 from PyQt5.QtCore import PYQT_VERSION_STR
 from quickqr import QUICKQR_HOMEPAGE_URL, QUICKQR_VERSION, QUICKQR_APPLICATION_NAME, RESOURCES_PATH
 
@@ -25,6 +31,8 @@ import sys
 
 
 def icon(name):
+    """Return a usable QtIcon using a given icon name in the application resources."""
+
     icons_path = RESOURCES_PATH.joinpath("icons")
     icon = icons_path.joinpath(name)
     if not icon.exists():
@@ -33,6 +41,10 @@ def icon(name):
 
 
 class MainWindow(QtWidgets.QMainWindow):
+    """Application main window.
+
+    Owns the system tray icon, the system tray icon's context menu, and contains the about widget.
+    """
 
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -43,28 +55,38 @@ class MainWindow(QtWidgets.QMainWindow):
         sizePolicy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
         self.setSizePolicy(sizePolicy)
 
+        # Instanciate as the about widget as the main window's central widget.
         self.widget_about = AboutWidget(self)
         self.setCentralWidget(self.widget_about)
 
+        # Instanciate the tray menu.
         self.menu_system_tray = TrayMenu(self)
 
+        # Instanciate the system tray icon with the tray menu as it's context menu.
         self.icon_system_tray = QtWidgets.QSystemTrayIcon()
         self.icon_system_tray.setIcon(icon("quickqr.svg"))
         self.icon_system_tray.setContextMenu(self.menu_system_tray)
         self.icon_system_tray.show()
 
     def closeEvent(self, event):
+        """Override the close event to hide the main window, not close the whole application."""
         event.ignore()
         self.hide()
 
 
 class AboutWidget(QtWidgets.QWidget):
+    """About widget.
+
+    Contains information about this application.
+    Allows to terminate the application.
+    """
 
     def __init__(self, parent=None):
         super(AboutWidget, self).__init__(parent)
         self.ui = Ui_AboutWidget()
         self.ui.setupUi(self)
 
+        # Define the about text.
         text = """
         <div align="center">
             <p style="font-size: xx-large"><strong>QuickQR</strong><br>v{}</p>
@@ -78,13 +100,19 @@ class AboutWidget(QtWidgets.QWidget):
         </div>""".format(QUICKQR_VERSION, QUICKQR_HOMEPAGE_URL, QUICKQR_HOMEPAGE_URL, PYQT_VERSION_STR)
         self.ui.about.setText(text)
 
-        # self.ui.close.setText("Close")
+        # Button that allow terminating the application.
         self.ui.terminate.setText("Terminate {}".format(QUICKQR_APPLICATION_NAME))
         self.ui.terminate.setIcon(icon("process-stop.svg"))
         self.ui.terminate.clicked.connect(QtWidgets.QApplication.exit)
 
 
 class TrayMenu(QtWidgets.QMenu):
+    """System tray icon's context menu.
+
+    Contains the following actions:
+    - Show/hide the about widget
+    - Show the QR code.
+    """
 
     def __init__(self, parent=None):
         super(TrayMenu, self).__init__(parent)
@@ -97,10 +125,12 @@ class TrayMenu(QtWidgets.QMenu):
                 not self.parent().isVisible()
         ))
         self.addAction(self.action_show_hide_about)
+
         # Terminate the application.
         # self.action_terminate = QtWidgets.QAction("Terminate {}".format(QUICKQR_APPLICATION_NAME))
         # self.action_terminate.triggered.connect(QtWidgets.QApplication.exit)
         # self.addAction(self.action_terminate)
+
         # Separator.
         self.addSeparator()
 
@@ -114,17 +144,20 @@ class TrayMenu(QtWidgets.QMenu):
                 not self.widget_display_qr.isVisible()
         ))
         self.addAction(self.action_display_qr)
-
+        # Initialise the action text.
         self.update()
 
+        # Watch clipboard changes to update the tray menu QR displaying action text.
         QtWidgets.QApplication.clipboard().dataChanged.connect(self.update)
 
 
     def update(self):
+        """Update the action's text that displays the QR code depending on the clipboard."""
+
         clipboard = QtWidgets.QApplication.clipboard().text()
         if clipboard:
             if sys.getsizeof(clipboard) <= 4096:
-                text = "Show QR of current clipboard"
+                text = "QR of current clipboard"
                 enabled = True
             else:
                 text = "Current clipboard is too large (>4kB) to generate a QR code!"
@@ -132,12 +165,16 @@ class TrayMenu(QtWidgets.QMenu):
         else:
             text = "Current clipboard is empty..."
             enabled = False
-
         self.action_display_qr.setText(text)
         self.action_display_qr.setEnabled(enabled)
 
 
 class QrWidget(QtWidgets.QWidget):
+    """Widget that display the QR code generated.
+
+    This is the main feature of this application.
+    When the clipboard changes, a new QR code is generated and written to disk.
+    """
 
     def __init__(self, parent=None):
         super(QrWidget, self).__init__(parent)
@@ -149,10 +186,16 @@ class QrWidget(QtWidgets.QWidget):
         self.temporary_qr_image_file = None
         self.update()
 
+        # Watch for clipboard changes to update the QR code.
         QtWidgets.QApplication.clipboard().dataChanged.connect(self.update)
 
 
     def update(self):
+        """Update the QR widget content by generate a new QR image file.
+
+        Is trigger on clipboard changes, therefore QR code will be different that the previously generated.
+        """
+
         clipboard = QtWidgets.QApplication.clipboard().text()
 
         # Prevent crashes when generating empty or oversized QR codes.
