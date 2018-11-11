@@ -218,8 +218,6 @@ class QrWidget(QtWidgets.QWidget):
                         {}
                     </div>""".format(self.temporary_qr_image_file.name, clipboard)
                 self.ui.label.setText(text)
-                return
-        self.hide()
 
     def closeEvent(self, event):
         event.ignore()
