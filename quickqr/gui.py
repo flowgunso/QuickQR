@@ -57,12 +57,6 @@ class MainWindow(QtWidgets.QMainWindow):
         event.ignore()
         self.hide()
 
-    def showEvent(self, event):
-        self.menu_system_tray.action_show_hide_about.update()
-
-    def hideEvent(self, event):
-        self.menu_system_tray.action_show_hide_about.update()
-
 
 class AboutWidget(QtWidgets.QWidget):
 
@@ -94,8 +88,14 @@ class TrayMenu(QtWidgets.QMenu):
 
     def __init__(self, parent=None):
         super(TrayMenu, self).__init__(parent)
-        # Show/hide the about.
-        self.action_show_hide_about = ShowHideAction(parent)
+
+        # Action that show/hide the about widgect.
+        self.action_show_hide_about = QtWidgets.QAction(self)
+        self.action_show_hide_about.setText("About QuickQR")
+        self.action_show_hide_about.triggered.connect(
+            lambda: self.parent().setVisible(
+                not self.parent().isVisible()
+        ))
         self.addAction(self.action_show_hide_about)
         # Terminate the application.
         # self.action_terminate = QtWidgets.QAction("Terminate {}".format(QUICKQR_APPLICATION_NAME))
@@ -103,10 +103,16 @@ class TrayMenu(QtWidgets.QMenu):
         # self.addAction(self.action_terminate)
         # Separator.
         self.addSeparator()
-        # The QR displaying!
-        self.action_display_qr = QtWidgets.QAction(self)
+
+        # The QR widget.
         self.widget_display_qr = QrWidget()
-        self.action_display_qr.triggered.connect(self.widget_display_qr.show)
+
+        # Action that show/hide the QR widget.
+        self.action_display_qr = QtWidgets.QAction(self)
+        self.action_display_qr.triggered.connect(
+            lambda: self.widget_display_qr.setVisible(
+                not self.widget_display_qr.isVisible()
+        ))
         self.addAction(self.action_display_qr)
 
         self.update()
@@ -175,17 +181,3 @@ class QrWidget(QtWidgets.QWidget):
     def closeEvent(self, event):
         event.ignore()
         self.hide()
-
-
-class ShowHideAction(QtWidgets.QAction):
-    def __init__(self, parent=None):
-        super(ShowHideAction, self).__init__(parent)
-        self.update()
-
-    def update(self):
-        if self.parent().isVisible():
-            self.setText("Hide about")
-            self.triggered.connect(self.parent().hide)
-        else:
-            self.setText("Show about")
-            self.triggered.connect(self.parent().show)
