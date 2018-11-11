@@ -14,7 +14,8 @@
 # GNU General Public License for more details.
 
 from PyQt5.QtWidgets import QApplication
-from quickqr import ROOT_PATH, QUICKQR_APPLICATION_NAME, gui
+from quickqr import ROOT_PATH, QUICKQR_APPLICATION_NAME
+from quickqr import gui, cli
 import logging
 import sys
 
@@ -38,6 +39,9 @@ def entrypoint():
     # Set handlers to loggers.
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
+
+    logger.debug("Parsing given arguments")
+    args = cli.parse()
 
     logger.debug("QuickQR is starting...")
     app = QApplication(sys.argv)
