@@ -30,7 +30,7 @@ def entrypoint():
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
     # Define handlers.
-    file_handler = logging.FileHandler(ROOT_PATH.joinpath("{}.log".format(QUICKQR_APPLICATION_NAME)))
+    file_handler = logging.FileHandler(str(ROOT_PATH.joinpath("{}.log".format(QUICKQR_APPLICATION_NAME))))
     console_handler = logging.StreamHandler()
     file_handler.setLevel(logging.DEBUG)
     console_handler.setLevel(logging.INFO)
