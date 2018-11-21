@@ -17,19 +17,24 @@ It generate a QR code from your current clipboard data.
 
 This application works, but does not offer much features.
 The following important features are planned:
-- __Display the QR code directly in the system tray menu__
 
-Due to specific Desktop Environments limitations, a new window is shown to display the QR code.
-While most _DE_ allow complex object in the system tray, some don't.
+- Display the QR code directly in the system tray menu
 
-Unsupported _DE_ will show a new window, all the other will display the QR code in the system tray menu.
+    Due to specific Desktop Environments limitations, a new window is shown to display the QR code.
+    While most _DE_ allow complex object in the system tray, some don't.  
+    Unsupported _DE_ will show a new window, all the other will display the QR code in the system tray menu.
 
-- __Generate content-specific QR codes__
+- Generate content-specific QR codes
 
-Displayed QR code in __QuickQR__ are raw text only.
+    Displayed QR code in __QuickQR__ are raw text only.  
+    But QR do support different content, such as WiFi connection, geolocation, SMS, Deep Linking and more.
 
-But QR do support different content, such as WiFi connection, geolocation, SMS, Deep Linking and more.
+- Save the QR image file with a right click
 
-You can check the [changelog](CHANGELOG.md) for more details.
+- Build system specific installer packages
+    
+    Build installable *.deb*, *.rpm*, *.dmg* and *.msi* packages 
+
+You can check the [TODO list](TODO.md) for more details.
 
 
