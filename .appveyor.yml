@@ -8,7 +8,10 @@ environment:
   PYTHON: C:\Python36-x64
 
 install:
-- ps: .\scripts\prepare-windows.ps1
+- cmd: >-
+    %PYTHON%\python.exe -m pip install -r requirements.txt
+
+    %PYTHON%\python.exe -m pip install -r scripts/requirements.txt
 
 build_script:
 - cmd: '"%PYTHON%\python.exe" -m PyInstaller QuickQR.spec'
