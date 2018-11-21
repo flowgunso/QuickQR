@@ -27,7 +27,3 @@ pip3 install --upgrade pip setuptools wheel
 pip3 install virtualenv
 python3 -m virtualenv -p python3 .
 source bin/activate
-
-pip3 install --upgrade pip
-pip3 install -r requirements.txt
-pip3 install -r scripts/requirements.txt
