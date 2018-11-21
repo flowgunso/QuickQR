@@ -1,14 +1,19 @@
 os:
   - linux
-  - osx
-  - windows
 language: python
-python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-  - "3.7"
-
+python: '3.6'
+sudo: required
+matrix:
+  include:
+  - os: osx
+    osx_image: xcode7.3
+    language: generic
+cache:
+  - pip
 install:
   - pip install -r requirements.txt
+  - pip install -r scripts/requirements.txt
+script: pyinstall QuickQR.spec
+branches:
+  only:
+  - master
