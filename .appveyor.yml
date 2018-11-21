@@ -1,17 +1,24 @@
 version: 0.dev{build}
+
 branches:
   only:
   - prototype
+
 environment:
   PYTHON: C:\Python36-x64
+
 install:
 - ps: .\scripts\prepare-windows.ps1
+
 build_script:
 - cmd: "%PYTHON%\python.exe" -m PyInstaller QuickQR.spec
+
 test: off
+
 artifacts:
 - path: dist/QuickQR.exe
   name: executable
+
 deploy:
 - provider: GitHub
   auth_token:
