@@ -25,12 +25,23 @@ branches:
   - prototype
 
 deploy:
-  provider: releases
+  - provider: releases
   api_key:
     secure: "Dgr2GMzkQ/NSHwujxA63q1yPK8ev8ELV9tlEpfpQMwyGR2Ya+RIrI9WhEm9oOYjcfS7fD15cotXXi1/AAbkj4Isbpaqf/ano0QEYGCx1nli4ReiFgAWLpFPRkJrpQwDeTVP93N46cQArXsJI2rmEzf9IvEX74Ls34yry9aVIsll/d4gbWHHUlW1OaFycdpeeXcSCUfsL+xIxR03eee9WUpNkK9oQ0ig99KXAnIY47pjy8jfwR6GVXVc2w4hX1RNVM+noTGyhunfx75db5dzXVFOwJfdyBl9hEPeDJZ7uZvCN6Xe69L12uhb/MM4lZftYVNaCuLlC9eGl+Ud9BqDX2kDyCVkDXuku7sm7XsQ/mNWvEHqsif1K3rKB165F5Vx1QHVTzSFMj6nHusXB/dVCrMBLmGT2JgODVSBeTbyWAzxubPo0yfO4f7p8FEgYRbHFgPiHfdmMJ3bwMzAnMrTTT40NNgdi6uArEpu+3X9bs0eoeqG8NoQ20l9i4o4gTZZggY6nURJy3EhbmuCXyjy3hNg3s2fiOmU58LidguMChwqhj4lXCFlhY7YrgXDEkVy3FKLtdoHx3wotQS3bLU+JJiK9Io8NHFf9VEVN9atcShNxm+fVJqjBlPaCR9cyA0v+XW+XPNFuNBk5R5wIy7v5TONM/ukJ6TGMHtsONsJNtKs="
   file_glob: true
-  file: "dist/QuickQR*"
+  file: "dist/QuickQR"
   skip_cleanup: true
   on:
     all_branches: true
     tags: false
+    condition: $TRAVIS_OS_NAME = "linux"
+  - provider: releases
+    api_key:
+      secure: "Dgr2GMzkQ/NSHwujxA63q1yPK8ev8ELV9tlEpfpQMwyGR2Ya+RIrI9WhEm9oOYjcfS7fD15cotXXi1/AAbkj4Isbpaqf/ano0QEYGCx1nli4ReiFgAWLpFPRkJrpQwDeTVP93N46cQArXsJI2rmEzf9IvEX74Ls34yry9aVIsll/d4gbWHHUlW1OaFycdpeeXcSCUfsL+xIxR03eee9WUpNkK9oQ0ig99KXAnIY47pjy8jfwR6GVXVc2w4hX1RNVM+noTGyhunfx75db5dzXVFOwJfdyBl9hEPeDJZ7uZvCN6Xe69L12uhb/MM4lZftYVNaCuLlC9eGl+Ud9BqDX2kDyCVkDXuku7sm7XsQ/mNWvEHqsif1K3rKB165F5Vx1QHVTzSFMj6nHusXB/dVCrMBLmGT2JgODVSBeTbyWAzxubPo0yfO4f7p8FEgYRbHFgPiHfdmMJ3bwMzAnMrTTT40NNgdi6uArEpu+3X9bs0eoeqG8NoQ20l9i4o4gTZZggY6nURJy3EhbmuCXyjy3hNg3s2fiOmU58LidguMChwqhj4lXCFlhY7YrgXDEkVy3FKLtdoHx3wotQS3bLU+JJiK9Io8NHFf9VEVN9atcShNxm+fVJqjBlPaCR9cyA0v+XW+XPNFuNBk5R5wIy7v5TONM/ukJ6TGMHtsONsJNtKs="
+    file_glob: true
+    file: "dist/QuickQR*"
+    skip_cleanup: true
+  on:
+    all_branches: true
+    tags: false
+    condition: $TRAVIS_OS_NAME = "osx"
