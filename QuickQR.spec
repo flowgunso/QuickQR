@@ -29,7 +29,7 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           runtime_tmpdir=None,
-          icon='resources/icons/quickqr.ico'
+          icon='resources/icons/quickqr.ico',
           console=False
           )
 
