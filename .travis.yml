@@ -16,4 +16,4 @@ install:
 script: pyinstall QuickQR.spec
 branches:
   only:
-  - master
+  - prototype
