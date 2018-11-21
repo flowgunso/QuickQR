@@ -17,7 +17,7 @@ sips -z 256 256  "${svg_path}" --out "${iconset_path}/icon_256x256.png"
 sips -z 512 512  "${svg_path}" --out "${iconset_path}/icon_256x256@2x.png"
 sips -z 512 512  "${svg_path}" --out "${iconset_path}/icon_512x512.png"
 sips -z 1024 1024  "${svg_path}" --out "${iconset_path}/icon_512x512@2x.png"
-iconutil -c icns "${iconset_path}" -o
+iconutil -c icns -o "${icns_path}" "${iconset_path}"
 
 # Install Python on OSX.
 wget "https://www.python.org/ftp/python/3.6.6/python-3.6.6-macosx10.9.pkg"
