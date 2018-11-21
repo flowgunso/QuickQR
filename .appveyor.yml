@@ -1,0 +1,27 @@
+version: 0.dev{build}
+branches:
+  only:
+  - prototype
+skip_non_tags: true
+environment:
+  PYTHON: C:\Python36-x64
+install:
+- cmd: >-
+    %PYTHON%\python.exe -m pip install -r requirements.txt
+
+    %PYTHON%\python.exe -m pip install -r scripts/requirements.txt
+build_script:
+- cmd: >-
+    "%PYTHON%\python.exe" -m PyInstaller QuickQR.spec
+
+test: off
+artifacts:
+- path: dist/QuickQR.exe
+  name: executable
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: /EKNndrZyMpOV+i9D506f8nayosOYFlu+casyIY94gVLT/D8DKt10N4v0TVgecpp
+  artifact: executable
+  draft: false
+  prerelease: false
