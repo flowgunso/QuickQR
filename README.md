@@ -1,6 +1,7 @@
 ![QuickQR logo](resources/icons/quickqr.svg)
 # QuickQR
 
+[![Linux/OSX build status](https://travis-ci.org/flowgunso/QuickQR.svg)](https://travis-ci.org/flowgunso/QuickQR)
 [![Windows build status](https://ci.appveyor.com/api/projects/status/ym9ls83a7r3hja8q?svg=true)](https://ci.appveyor.com/project/flowgunso/quickqr)
 
 __Quickly generate QR codes.__
