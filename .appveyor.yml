@@ -1,8 +1,10 @@
-version: 0.dev{build}
-
 branches:
   only:
-  - prototype
+  - staging
+  - master
+
+skip_non_tags: true
+
 
 environment:
   PYTHON: C:\Python36-x64
