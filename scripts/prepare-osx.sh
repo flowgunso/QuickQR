@@ -3,7 +3,7 @@
 # Build the OSX icns.
 resources_path="resources"
 svg_path="${resources_path}/icons/quickqr.svg"
-iconset_path="${resources_path}/iconset"
+iconset_path="${resources_path}/quickqr.iconset"
 icns_path="${resources_path}/icons/quickqr.icns"
 mkdir "${iconset_path}"
 sips -z 16 16  "${svg_path}" --out "${iconset_path}/icon_16x16.png"
