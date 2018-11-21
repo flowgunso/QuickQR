@@ -34,6 +34,14 @@ exe = EXE(pyz,
           console=False
           )
 
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=False,
+name='picard')
+
 if platform.system() == 'Darwin':
     app = BUNDLE(coll,
                  name='QuickQR.app',
