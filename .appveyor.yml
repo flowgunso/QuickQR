@@ -11,7 +11,8 @@ install:
 - ps: .\scripts\prepare-windows.ps1
 
 build_script:
-- cmd: "%PYTHON%\python.exe" -m PyInstaller QuickQR.spec
+- cmd: >-
+  "%PYTHON%\python.exe" -m PyInstaller QuickQR.spec
 
 test: off
 
