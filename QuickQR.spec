@@ -29,4 +29,13 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           runtime_tmpdir=None,
-          console=False )
+          icon='resources/icons/quickqr.ico'
+          console=False
+          )
+
+if platform.system() == 'Darwin':
+    app = BUNDLE(coll,
+                 name='QuickQR.app',
+                 icon='resources/icons/quickqr.icns',
+                 bundle_identifier=None,
+                 )
