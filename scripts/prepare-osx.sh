@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Build the OSX icns.
-resource_path="resources"
+resources_path="resources"
 svg_path="${resources_path}/icons/quickqr.svg"
-iconset_path="${resources_path}/quickqr.iconset"
+iconset_path="${resources_path}/iconset"
 icns_path="${resources_path}/icons/quickqr.icns"
 mkdir "${iconset_path}"
 sips -z 16 16  "${svg_path}" --out "${iconset_path}/icon_16x16.png"
@@ -27,3 +27,4 @@ pip3 install --upgrade pip setuptools wheel
 pip3 install virtualenv
 python3 -m virtualenv -p python3 .
 source bin/activate
+
