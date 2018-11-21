@@ -12,3 +12,5 @@
 - Build documentation with Sphinx
 - Write tests
 - Management QApplication.exit() event to clear qr images and logging
+- Build installable packages (deb, rpm, dmg, msi)
+- Ability to save the QR image file
