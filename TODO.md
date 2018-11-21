@@ -9,7 +9,6 @@
   - find which
   - display a widget when not supported
   - display within the menu when supported
-- Instead of writing QR code image file to disk, how about to RAM ?
 - Build documentation with Sphinx
 - Write tests
 - Management QApplication.exit() event to clear qr images and logging
