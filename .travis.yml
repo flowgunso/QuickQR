@@ -14,9 +14,7 @@ cache:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then bash scripts/prepare-osx.sh; fi
-  - pip3 install --upgrade pip
-  - pip3 install -r requirements.txt
-  - pip3 install -r scripts/requirements.txt
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then bash scripts/prepare-linux.sh; fi
 
 script: python3 -m PyInstaller QuickQR.spec
 
@@ -31,4 +29,4 @@ deploy:
   file: "dist/QuickQR.app"
   skip_cleanup: true
   on:
-    tags: true
+    tags: false
