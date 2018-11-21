@@ -23,6 +23,7 @@ from PyQt5.QtCore import PYQT_VERSION_STR
 from quickqr import QUICKQR_HOMEPAGE_URL, QUICKQR_VERSION, QUICKQR_APPLICATION_NAME, RESOURCES_PATH
 
 from PyQt5 import QtWidgets, QtGui
+from PIL.ImageQt import ImageQt
 from quickqr.ui_about import Ui_AboutWidget
 from quickqr.ui_qr import Ui_QrWidget
 from tempfile import NamedTemporaryFile
@@ -194,7 +195,7 @@ class QrWidget(QtWidgets.QWidget):
         self.setWindowIcon(icon("quickqr.svg"))
 
         # Define the initial QR image file state.
-        self.temporary_qr_image_file = None
+        # self.temporary_qr_image_file = None
         self.update()
 
         # Watch for clipboard changes to update the QR code.
@@ -215,22 +216,17 @@ class QrWidget(QtWidgets.QWidget):
         if clipboard:
             if sys.getsizeof(clipboard) <= 4096:
 
-                # Close the last temporary QR image file.
-                if self.temporary_qr_image_file is not None:
-                    self.temporary_qr_image_file.close()
+                # # Close the last temporary QR image file.
+                # if self.temporary_qr_image_file is not None:
+                #     self.temporary_qr_image_file.close()
 
                 # Generate QR code and save it to the temporary file.
-                qr = qrcode.make(clipboard)
-                self.temporary_qr_image_file = NamedTemporaryFile(mode="wb")
-                qr.save(self.temporary_qr_image_file)
+
+                qr = ImageQt(qrcode.make(clipboard))
 
                 # Set the text displayed in the widget as HTML.
-                text = """
-                    <div align="center">
-                        <img src="{}" width="500" height="500"/><br>
-                        {}
-                    </div>""".format(self.temporary_qr_image_file.name, clipboard)
-                self.ui.label.setText(text)
+                self.ui.label_qr.setPixmap(QtGui.QPixmap.fromImage(qr))
+                self.ui.label_clipboard.setText(clipboard)
 
     def closeEvent(self, event):
         event.ignore()
