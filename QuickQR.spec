@@ -4,6 +4,14 @@ import platform
 
 block_cipher = None
 
+runtime_system = platform.system()
+if runtime_system == "Linux":
+    executable_name = 'QuickQR_linux'
+elif runtime_system == "Darwin":
+    executable_name = 'QuickQR_osx'
+else:
+    executable_name = "QuickQR"
+
 a = Analysis(['entrypoint.py'],
              pathex=['/home/florian/Workspaces/applications/Jetbrains/PyCharm/QuickQR'],
              binaries=[],
@@ -24,7 +32,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='QuickQR',
+          name=executable_name,
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
