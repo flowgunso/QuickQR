@@ -1,6 +1,7 @@
 branches:
   only:
-  - prototype
+  - master
+  - staging
 
 matrix:
   include:
@@ -15,7 +16,7 @@ matrix:
 cache:
   - pip
 
-before_install:
+install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then bash scripts/prepare-osx.sh; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then bash scripts/prepare-linux.sh; fi
   - pip3 install --upgrade pip setuptools
@@ -23,9 +24,6 @@ before_install:
   - pip3 install -r scripts/requirements.txt
 
 script: python3 -m PyInstaller QuickQR.spec
-
-after_script:
-  -
 
 deploy:
   - provider: releases
