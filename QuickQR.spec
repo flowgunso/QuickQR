@@ -40,7 +40,7 @@ coll = COLLECT(exe,
                a.datas,
                strip=False,
                upx=False,
-name='picard')
+               name='QuickQR')
 
 if platform.system() == 'Darwin':
     app = BUNDLE(coll,
