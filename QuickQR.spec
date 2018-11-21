@@ -1,7 +1,8 @@
 # -*- mode: python -*-
 
-block_cipher = None
+import platform
 
+block_cipher = None
 
 a = Analysis(['entrypoint.py'],
              pathex=['/home/florian/Workspaces/applications/Jetbrains/PyCharm/QuickQR'],
