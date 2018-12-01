@@ -26,6 +26,7 @@ class Ui_QrWidget(object):
         self.label_clipboard.setText("")
         self.label_clipboard.setTextFormat(QtCore.Qt.RichText)
         self.label_clipboard.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_clipboard.setWordWrap(True)
         self.label_clipboard.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label_clipboard.setObjectName("label_clipboard")
         self.verticalLayout.addWidget(self.label_clipboard)
