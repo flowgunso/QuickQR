@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 QUICKQR_ORGANISATION_NAME = "flow.gunso@gmail.com"
 QUICKQR_APPLICATION_NAME = "QuickQR"
 QUICKQR_HOMEPAGE_URL = "http://gitlab.com/flowgunso/QuickQR"
-QUICKQR_VERSION = "0.dev0"
+QUICKQR_VERSION = "1.1"
 
 ROOT_PATH = Path(os.path.dirname(os.path.abspath(sys.argv[0])))
 

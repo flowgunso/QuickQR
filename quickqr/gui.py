@@ -216,17 +216,15 @@ class QrWidget(QtWidgets.QWidget):
         if clipboard:
             if sys.getsizeof(clipboard) <= 4096:
 
-                # # Close the last temporary QR image file.
-                # if self.temporary_qr_image_file is not None:
-                #     self.temporary_qr_image_file.close()
-
-                # Generate QR code and save it to the temporary file.
-
+                # Generate the QR image.
                 qr = ImageQt(qrcode.make(clipboard))
 
-                # Set the text displayed in the widget as HTML.
+                # Load the QR image and it's text.
                 self.ui.label_qr.setPixmap(QtGui.QPixmap.fromImage(qr))
                 self.ui.label_clipboard.setText(clipboard)
+
+                # Set the widget size to the new minimum.
+                self.setFixedSize(self.minimumSizeHint())
 
     def closeEvent(self, event):
         event.ignore()
