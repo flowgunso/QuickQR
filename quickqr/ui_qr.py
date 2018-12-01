@@ -12,6 +12,11 @@ class Ui_QrWidget(object):
     def setupUi(self, QrWidget):
         QrWidget.setObjectName("QrWidget")
         QrWidget.resize(94, 58)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(QrWidget.sizePolicy().hasHeightForWidth())
+        QrWidget.setSizePolicy(sizePolicy)
         self.verticalLayout = QtWidgets.QVBoxLayout(QrWidget)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label_qr = QtWidgets.QLabel(QrWidget)
