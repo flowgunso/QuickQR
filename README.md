@@ -6,12 +6,20 @@
 
 __Quickly generate QR codes.__
 
+<span>
+    <img src="docs/demo_qr-window.png" alt="Demonstrate the QR display"/>
+    <img src="docs/demo_tray-menu.png" alt="Demonstrate the tray menu"/>
+    <img src="docs/demo_about-window.png" alt="Demonstrate the about page"/>
+</span>
+
 # Introduction
 
 *QuickQR* is a Qt application that lives in your system tray.
 It generate a QR code from your current clipboard data.
 
 # Installation
+
+For now, grab the portable executable directly form the [releases](https://github.com/flowgunso/QuickQR/releases).
 
 # Roadmap
 
